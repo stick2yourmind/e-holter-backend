@@ -37,6 +37,8 @@ model Tag{
   userId          Int @unique 
 
   records         Record[]
+
+  @@unique([userId, name], name: "tagByUser")
 }
 
 
