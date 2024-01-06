@@ -20,8 +20,42 @@ model User {
 
   createdAt       DateTime  @default(now()) @db.Timestamptz(0)
   updatedAt       DateTime  @updatedAt @db.Timestamptz(0)
+  
+  tags            Tag[]
+  records         Record[]
 }
 
+model Tag{
+  id              Int       @id @default(autoincrement())
+  name            String    @db.VarChar
+  description     String    @db.VarChar
+
+  createdAt       DateTime  @default(now()) @db.Timestamptz(0)
+  updatedAt       DateTime  @updatedAt @db.Timestamptz(0)
+
+  user            User @relation(fields: [userId], references: [id])
+  userId          Int @unique 
+
+  records         Record[]
+
+  @@unique([userId, name], name: "tagByUser")
+}
+
+
+model Record{
+  id                  Int       @id @default(autoincrement())
+  minimum_pressure    String    @db.VarChar
+  maximum_pressure    String    @db.VarChar
+  observations        String?   @db.VarChar
+
+  createdAt           DateTime  @default(now()) @db.Timestamptz(0)
+  updatedAt           DateTime  @updatedAt @db.Timestamptz(0)
+
+  user                User @relation(fields: [userId], references: [id])
+  userId              Int @unique
+
+  tags                Tag[]
+}
 
 enum ROLE {
   USER
