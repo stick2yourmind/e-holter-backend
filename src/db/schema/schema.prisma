@@ -35,6 +35,8 @@ model Tag{
 
   user            User @relation(fields: [userId], references: [id])
   userId          Int @unique 
+
+  records         Record[]
 }
 
 
@@ -49,6 +51,8 @@ model Record{
 
   user                User @relation(fields: [userId], references: [id])
   userId              Int @unique
+
+  tags                Tag[]
 }
 
 enum ROLE {
