@@ -25,6 +25,20 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
         autoSchemaFile: join(process.cwd(), 'src/schema.gpl'),
         playground: false,
         plugins: configService.getOrThrow('NODE_END') !== 'PROD' ? [ApolloServerPluginLandingPageLocalDefault()] : [],
+        formatError: (error) => {
+          const originalError = error.extensions?.originalError as { message: any; error: string };
+
+          if (!originalError) {
+            return {
+              message: error.message,
+              code: error.extensions?.code,
+            };
+          }
+          return {
+            message: originalError.message,
+            code: originalError.error,
+          };
+        },
       }),
     }),
   ],
