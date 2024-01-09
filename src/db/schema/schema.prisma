@@ -25,7 +25,7 @@ model User {
   records         Record[]
 }
 
-model Tag{
+model Tag {
   id              Int       @id @default(autoincrement())
   name            String    @db.VarChar
   description     String    @db.VarChar
@@ -37,12 +37,10 @@ model Tag{
   userId          Int @unique 
 
   records         Record[]
-
-  @@unique([userId, name], name: "tagByUser")
 }
 
 
-model Record{
+model Record {
   id                  Int       @id @default(autoincrement())
   minimum_pressure    String    @db.VarChar
   maximum_pressure    String    @db.VarChar
