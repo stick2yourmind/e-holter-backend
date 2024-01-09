@@ -18,7 +18,7 @@ export class AuthService {
   async login({ email, password }: LoginInput) {
     const user = await this._userService.findByEmail(email);
     if (!bcrypt.compareSync(password, user.password)) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Invalid user or email');
     }
 
     const token = this._jwtService.sign({ id: user.id });
