@@ -3,10 +3,14 @@ import { $Enums, User } from '@prisma/client';
 import { BaseRepository } from 'src/common/repositories/base.repository';
 import { PrismaService } from 'src/db/orm/orm.service';
 
-Injectable();
+@Injectable()
 export class UserRepository extends BaseRepository<User> {
   constructor(private readonly _prismaService: PrismaService) {
     super();
+  }
+
+  async findByEmail(email: string): Promise<User> {
+    return await this._prismaService.user.findFirstOrThrow({ where: { email } });
   }
 
   async findById(id: number): Promise<User> {
@@ -18,7 +22,8 @@ export class UserRepository extends BaseRepository<User> {
   }
 
   async create(data: { username: string; email: string; password: string }): Promise<User> {
-    return await this._prismaService.user.create({ data });
+    const user = await this._prismaService.user.create({ data });
+    return user;
   }
 
   async update(

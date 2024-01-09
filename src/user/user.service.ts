@@ -2,33 +2,37 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepository } from './repositories/user.repository';
-import { UserMapper } from './mapper/user-mapper';
 
 @Injectable()
 export class UserService {
   constructor(private readonly _userRepository: UserRepository) {}
   async create(createUserDto: CreateUserDto) {
-    return await this._userRepository.create(createUserDto);
+    const user = await this._userRepository.create(createUserDto);
+    return user;
   }
 
   async findAll() {
     const users = await this._userRepository.findAll();
-
-    return new UserMapper().mapEntitiesToDto(users);
+    return users;
   }
 
   async findById(id: number) {
     const user = await this._userRepository.findById(id);
-    return new UserMapper().mapEntityToDto(user);
+    return user;
+  }
+
+  async findByEmail(email: string) {
+    const user = await this._userRepository.findByEmail(email);
+    return user;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     const user = await this._userRepository.update(id, updateUserDto);
-    return new UserMapper().mapEntityToDto(user);
+    return user;
   }
 
   async remove(id: number) {
     const user = await this._userRepository.removeById(id);
-    return new UserMapper().mapEntityToDto(user);
+    return user;
   }
 }
