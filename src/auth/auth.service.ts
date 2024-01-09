@@ -1,11 +1,11 @@
-import { LoginInput } from './dto/login.input';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { RegisterInput } from './dto/register.input';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
-import { UserMapper } from 'src/user/mapper/user-mapper';
-import { UserService } from 'src/user/user.service';
+import { RegisterInput } from 'src/auth/dto/register.input';
+import { LoginInput } from 'src/auth/dto/login.input';
+import { UserMapper } from 'src/core/user/mapper/user-mapper';
+import { UserService } from 'src/core/user/user.service';
 
 @Injectable()
 export class AuthService {
