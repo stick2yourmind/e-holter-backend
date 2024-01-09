@@ -1,0 +1,65 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""user data"""
+type UserOutput {
+  """user id"""
+  id: Int!
+
+  """user alias"""
+  username: String!
+
+  """user email"""
+  email: String!
+
+  """user role"""
+  roles: String!
+
+  """represents if user has validated its email"""
+  isValidated: Boolean!
+
+  """register date"""
+  createdAt: DateTime!
+
+  """update date"""
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Auth {
+  """json web token"""
+  token: String!
+
+  """current user data"""
+  user: UserOutput!
+}
+
+type Query {
+  test: String!
+}
+
+type Mutation {
+  login(loginInput: LoginInput!): Auth!
+  register(registerInput: RegisterInput!): Auth!
+}
+
+input LoginInput {
+  """user email"""
+  email: String!
+
+  """user password"""
+  password: String!
+}
+
+input RegisterInput {
+  """user email"""
+  email: String!
+
+  """user password"""
+  password: String!
+}
