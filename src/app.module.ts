@@ -7,7 +7,6 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { OrmModule } from 'src/db/orm/orm.module';
 import { AuthModule } from 'src/auth/auth.module';
 import { UserModule } from 'src/core/user/user.module';
-import { RecordModule } from './core/record/record.module';
 
 @Module({
   imports: [
@@ -17,7 +16,6 @@ import { RecordModule } from './core/record/record.module';
     OrmModule,
     UserModule,
     AuthModule,
-    RecordModule,
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
       inject: [ConfigService],
