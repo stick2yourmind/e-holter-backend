@@ -39,13 +39,25 @@ type Auth {
   user: UserOutput!
 }
 
+type Record {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 type Query {
+  userById(id: Int!): UserOutput!
+  users: [UserOutput!]!
+  myUser: UserOutput!
   test: String!
+  record(id: Int!): Record!
 }
 
 type Mutation {
   login(loginInput: LoginInput!): Auth!
   register(registerInput: RegisterInput!): Auth!
+  createRecord(createRecordInput: CreateRecordInput!): Record!
+  updateRecord(updateRecordInput: UpdateRecordInput!): Record!
+  removeRecord(id: Int!): Record!
 }
 
 input LoginInput {
@@ -62,4 +74,15 @@ input RegisterInput {
 
   """user password"""
   password: String!
+}
+
+input CreateRecordInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateRecordInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
