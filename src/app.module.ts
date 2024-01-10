@@ -1,14 +1,12 @@
+import { join } from 'path';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { OrmModule } from './db/orm/orm.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { UserModule } from './user/user.module';
-import { AuthModule } from './auth/auth.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { join } from 'path';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
+import { OrmModule } from 'src/db/orm/orm.module';
+import { AuthModule } from 'src/auth/auth.module';
+import { UserModule } from 'src/core/user/user.module';
 
 @Module({
   imports: [
@@ -42,7 +40,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
       }),
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

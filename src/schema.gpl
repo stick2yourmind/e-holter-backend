@@ -40,6 +40,9 @@ type Auth {
 }
 
 type Query {
+  userById(id: Int!): UserOutput!
+  users: [UserOutput!]!
+  myUser: UserOutput!
   test: String!
 }
 
