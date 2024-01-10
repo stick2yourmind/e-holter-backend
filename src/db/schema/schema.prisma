@@ -34,7 +34,7 @@ model Tag {
   updatedAt       DateTime  @updatedAt @db.Timestamptz(0)
 
   user            User @relation(fields: [userId], references: [id])
-  userId          Int @unique 
+  userId          Int
 
   records         Record[]
 }
@@ -50,7 +50,7 @@ model Record {
   updatedAt           DateTime  @updatedAt @db.Timestamptz(0)
 
   user                User @relation(fields: [userId], references: [id])
-  userId              Int @unique
+  userId              Int
 
   tags                Tag[]
 }
