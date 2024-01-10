@@ -10,7 +10,7 @@ export class UserRepository extends BaseRepository<User> {
   }
 
   async findByEmail(email: string): Promise<User> {
-    return await this._prismaService.user.findFirstOrThrow({ where: { email } });
+    return await this._prismaService.user.findFirst({ where: { email } });
   }
 
   async findById(id: number): Promise<User> {
