@@ -113,5 +113,4 @@ input UpdateRecordInput {
 
   """record observations"""
   observations: String
-  id: Int!
 }

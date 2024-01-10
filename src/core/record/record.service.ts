@@ -3,6 +3,7 @@ import { CreateRecordInput } from './dto/create-record.input';
 import { UpdateRecordInput } from './dto/update-record.input';
 import { RecordRepository } from 'src/core/record/repositories/record.repository';
 import { Prisma } from '@prisma/client';
+import { Decimal } from '@prisma/client/runtime/library';
 
 @Injectable()
 export class RecordService {
@@ -24,8 +25,22 @@ export class RecordService {
     return await this._recordRepository.findById(id);
   }
 
-  async update(recordId: number, updateRecordInput: UpdateRecordInput) {
-    return await this._recordRepository.update(recordId, updateRecordInput);
+  async update(recordId: number, { maxPressure, minPressure, observations }: UpdateRecordInput) {
+    const newData = { maximum_pressure: undefined, minimum_pressure: undefined, observations: undefined };
+
+    if (maxPressure) {
+      newData.maximum_pressure = new Decimal(maxPressure);
+    }
+
+    if (minPressure) {
+      newData.minimum_pressure = new Decimal(minPressure);
+    }
+
+    if (observations) {
+      newData.observations = observations;
+    }
+
+    return await this._recordRepository.update(recordId, newData);
   }
 
   async remove(recordId: number) {
