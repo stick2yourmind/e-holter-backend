@@ -42,8 +42,8 @@ model Tag {
 
 model Record {
   id                  Int       @id @default(autoincrement())
-  minimum_pressure    String    @db.VarChar
-  maximum_pressure    String    @db.VarChar
+  minimum_pressure    Decimal   @db.Decimal(5, 2)
+  maximum_pressure    Decimal   @db.Decimal(5, 2)
   observations        String?   @db.VarChar
 
   createdAt           DateTime  @default(now()) @db.Timestamptz(0)
