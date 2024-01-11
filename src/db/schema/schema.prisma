@@ -42,8 +42,8 @@ model Tag {
 
 model Record {
   id                  Int       @id @default(autoincrement())
-  minimum_pressure    Decimal   @db.Decimal(5, 2)
-  maximum_pressure    Decimal   @db.Decimal(5, 2)
+  minimumPressure    Decimal   @db.Decimal(5, 2)
+  maximumPressure    Decimal   @db.Decimal(5, 2)
   heartRate           Int
   date                DateTime
   observations        String?   @db.VarChar
