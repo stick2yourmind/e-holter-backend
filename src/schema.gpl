@@ -24,6 +24,7 @@ type UserOutput {
 
   """update date"""
   updatedAt: DateTime!
+  records: [RecordOutput!]!
 }
 
 """

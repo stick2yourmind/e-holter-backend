@@ -8,6 +8,7 @@ import { Decimal } from '@prisma/client/runtime/library';
 @Injectable()
 export class RecordService {
   constructor(private readonly _recordRepository: RecordRepository) {}
+
   async create(userId: number, { maxPressure, minPressure, observations }: CreateRecordInput) {
     return await this._recordRepository.create({
       userId,
@@ -45,5 +46,9 @@ export class RecordService {
 
   async remove(recordId: number) {
     return await this._recordRepository.removeById(recordId);
+  }
+
+  async findAllByUserId(userId: number) {
+    return await this._recordRepository.findAllByUserId(userId);
   }
 }

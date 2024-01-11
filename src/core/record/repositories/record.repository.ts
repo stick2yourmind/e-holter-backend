@@ -42,4 +42,8 @@ export class RecordRepository extends BaseRepository<Record> {
   async removeById(id: number): Promise<Record> {
     return await this._prismaService.record.delete({ where: { id } });
   }
+
+  async findAllByUserId(userId: number): Promise<Record[]> {
+    return await this._prismaService.record.findMany({ where: { userId } });
+  }
 }
