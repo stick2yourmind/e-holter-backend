@@ -17,7 +17,7 @@ export class AuthService {
 
   async login({ email, password }: LoginInput) {
     const user = await this._userService.findByEmail(email);
-    if (!bcrypt.compareSync(password, user.password)) {
+    if (!user || !bcrypt.compareSync(password, user.password)) {
       throw new UnauthorizedException('Invalid user or email');
     }
 

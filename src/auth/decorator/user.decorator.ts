@@ -7,7 +7,7 @@ export const ReqUser = createParamDecorator((data: unknown, ctx: ExecutionContex
   const { user } = graphQLContext.getContext().req;
 
   if (!user) {
-    throw new UnauthorizedException();
+    throw new UnauthorizedException('Credentials are required');
   }
   return user;
 });

@@ -24,6 +24,7 @@ type UserOutput {
 
   """update date"""
   updatedAt: DateTime!
+  records: [RecordOutput!]!
 }
 
 """
@@ -39,16 +40,48 @@ type Auth {
   user: UserOutput!
 }
 
+"""record model"""
+type RecordOutput {
+  """record id"""
+  id: Int!
+
+  """max pressure or systolic pressure"""
+  maxPressure: Float!
+
+  """min pressure or diastolic pressure"""
+  minPressure: Float!
+
+  """heart rate per minute"""
+  heartRate: Int!
+
+  """date on which the measurement was taken"""
+  date: DateTime!
+
+  """record's observations"""
+  observations: String
+
+  """register date"""
+  createdAt: DateTime!
+
+  """update date"""
+  updatedAt: DateTime!
+}
+
 type Query {
   userById(id: Int!): UserOutput!
   users: [UserOutput!]!
   myUser: UserOutput!
   test: String!
+  records: [RecordOutput!]!
+  record(id: Int!): RecordOutput!
 }
 
 type Mutation {
   login(loginInput: LoginInput!): Auth!
   register(registerInput: RegisterInput!): Auth!
+  createRecord(createRecordInput: CreateRecordInput!): RecordOutput!
+  updateRecord(id: Int!, updateRecordInput: UpdateRecordInput!): RecordOutput!
+  removeRecord(id: Int!): RecordOutput!
 }
 
 input LoginInput {
@@ -65,4 +98,38 @@ input RegisterInput {
 
   """user password"""
   password: String!
+}
+
+input CreateRecordInput {
+  """max pressure or systolic pressure"""
+  maxPressure: Float!
+
+  """min pressure or diastolic pressure"""
+  minPressure: Float!
+
+  """heart rate per minute"""
+  heartRate: Int!
+
+  """date on which the measurement was taken"""
+  date: DateTime!
+
+  """record observations"""
+  observations: String
+}
+
+input UpdateRecordInput {
+  """max pressure or systolic pressure"""
+  maxPressure: Float
+
+  """min pressure or diastolic pressure"""
+  minPressure: Float
+
+  """heart rate per minute"""
+  heartRate: Int
+
+  """date on which the measurement was taken"""
+  date: DateTime
+
+  """record observations"""
+  observations: String
 }
