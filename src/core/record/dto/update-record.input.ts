@@ -7,22 +7,24 @@ export class UpdateRecordInput {
   @IsOptional()
   @IsNumber({ maxDecimalPlaces: 2 })
   @IsPositive()
-  maxPressure: number;
+  maxPressure?: number;
 
   @Field(() => Float, { description: 'min pressure or diastolic pressure', nullable: true })
   @IsOptional()
   @IsNumber({ maxDecimalPlaces: 2 })
   @IsPositive()
-  minPressure: number;
+  minPressure?: number;
 
-  @Field(() => Int, { description: 'heart rate per minute' })
+  @Field(() => Int, { description: 'heart rate per minute', nullable: true })
+  @IsOptional()
   @IsNumber()
   @IsPositive()
-  heartRate: number;
+  heartRate?: number;
 
-  @Field(() => Date, { description: 'date on which the measurement was taken' })
+  @Field(() => Date, { description: 'date on which the measurement was taken', nullable: true })
+  @IsOptional()
   @IsDate()
-  date: Date;
+  date?: Date;
 
   @Field(() => String, { description: 'record observations', nullable: true })
   @IsOptional()

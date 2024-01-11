@@ -125,10 +125,10 @@ input UpdateRecordInput {
   minPressure: Float
 
   """heart rate per minute"""
-  heartRate: Int!
+  heartRate: Int
 
   """date on which the measurement was taken"""
-  date: DateTime!
+  date: DateTime
 
   """record observations"""
   observations: String

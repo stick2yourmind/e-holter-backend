@@ -30,19 +30,19 @@ export class RecordService {
 
   async update(recordId: number, { maxPressure, minPressure, heartRate, date, observations }: UpdateRecordInput) {
     const newData = {
-      maximum_pressure: undefined,
-      minimum_pressure: undefined,
+      maximumPressure: undefined,
+      minimumPressure: undefined,
       observations: undefined,
       heartRate: undefined,
       date: undefined,
     };
 
     if (maxPressure) {
-      newData.maximum_pressure = new Decimal(maxPressure);
+      newData.maximumPressure = new Decimal(maxPressure);
     }
 
     if (minPressure) {
-      newData.minimum_pressure = new Decimal(minPressure);
+      newData.minimumPressure = new Decimal(minPressure);
     }
 
     if (observations) {

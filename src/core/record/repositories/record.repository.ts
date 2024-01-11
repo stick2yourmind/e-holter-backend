@@ -33,8 +33,8 @@ export class RecordRepository extends BaseRepository<Record> {
   async update(
     id: number,
     data: {
-      minimum_pressure?: Decimal;
-      maximum_pressure?: Decimal;
+      minimumPressure?: Decimal;
+      maximumPressure?: Decimal;
       heartRate?: number;
       date?: Date;
       observations?: string;
