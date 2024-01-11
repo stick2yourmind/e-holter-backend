@@ -51,6 +51,12 @@ type RecordOutput {
   """min pressure or diastolic pressure"""
   minPressure: Float!
 
+  """heart rate per minute"""
+  heartRate: Int!
+
+  """date on which the measurement was taken"""
+  date: DateTime!
+
   """record's observations"""
   observations: String
 
@@ -101,6 +107,12 @@ input CreateRecordInput {
   """min pressure or diastolic pressure"""
   minPressure: Float!
 
+  """heart rate per minute"""
+  heartRate: Int!
+
+  """date on which the measurement was taken"""
+  date: DateTime!
+
   """record observations"""
   observations: String
 }
@@ -111,6 +123,12 @@ input UpdateRecordInput {
 
   """min pressure or diastolic pressure"""
   minPressure: Float
+
+  """heart rate per minute"""
+  heartRate: Int!
+
+  """date on which the measurement was taken"""
+  date: DateTime!
 
   """record observations"""
   observations: String

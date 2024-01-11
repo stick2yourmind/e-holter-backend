@@ -9,11 +9,13 @@ import { Decimal } from '@prisma/client/runtime/library';
 export class RecordService {
   constructor(private readonly _recordRepository: RecordRepository) {}
 
-  async create(userId: number, { maxPressure, minPressure, observations }: CreateRecordInput) {
+  async create(userId: number, { maxPressure, minPressure, heartRate, date, observations }: CreateRecordInput) {
     return await this._recordRepository.create({
       userId,
-      maximum_pressure: new Prisma.Decimal(maxPressure),
-      minimum_pressure: new Prisma.Decimal(minPressure),
+      maximumPressure: new Prisma.Decimal(maxPressure),
+      minimumPressure: new Prisma.Decimal(minPressure),
+      heartRate,
+      date,
       observations,
     });
   }
@@ -26,8 +28,14 @@ export class RecordService {
     return await this._recordRepository.findById(id);
   }
 
-  async update(recordId: number, { maxPressure, minPressure, observations }: UpdateRecordInput) {
-    const newData = { maximum_pressure: undefined, minimum_pressure: undefined, observations: undefined };
+  async update(recordId: number, { maxPressure, minPressure, heartRate, date, observations }: UpdateRecordInput) {
+    const newData = {
+      maximum_pressure: undefined,
+      minimum_pressure: undefined,
+      observations: undefined,
+      heartRate: undefined,
+      date: undefined,
+    };
 
     if (maxPressure) {
       newData.maximum_pressure = new Decimal(maxPressure);
@@ -39,6 +47,14 @@ export class RecordService {
 
     if (observations) {
       newData.observations = observations;
+    }
+
+    if (heartRate) {
+      newData.heartRate = heartRate;
+    }
+
+    if (date) {
+      newData.date = date;
     }
 
     return await this._recordRepository.update(recordId, newData);

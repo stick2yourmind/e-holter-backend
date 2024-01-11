@@ -19,8 +19,10 @@ export class RecordRepository extends BaseRepository<Record> {
   }
 
   async create(data: {
-    minimum_pressure: Decimal;
-    maximum_pressure: Decimal;
+    minimumPressure: Decimal;
+    maximumPressure: Decimal;
+    heartRate: number;
+    date: Date;
     userId: number;
     observations?: string;
   }): Promise<Record> {
@@ -33,6 +35,8 @@ export class RecordRepository extends BaseRepository<Record> {
     data: {
       minimum_pressure?: Decimal;
       maximum_pressure?: Decimal;
+      heartRate?: number;
+      date?: Date;
       observations?: string;
     },
   ): Promise<Record> {

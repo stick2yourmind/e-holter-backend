@@ -11,6 +11,12 @@ export class RecordOutput {
   @Field(() => Float, { description: 'min pressure or diastolic pressure' })
   minPressure: number;
 
+  @Field(() => Int, { description: 'heart rate per minute' })
+  heartRate: number;
+
+  @Field(() => Date, { description: 'date on which the measurement was taken' })
+  date: Date;
+
   @Field(() => String, { description: "record's observations", nullable: true })
   observations?: string;
 

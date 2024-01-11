@@ -1,5 +1,5 @@
-import { InputType, Field, Float } from '@nestjs/graphql';
-import { IsNumber, IsOptional, IsPositive, IsString } from 'class-validator';
+import { InputType, Field, Float, Int } from '@nestjs/graphql';
+import { IsDate, IsNumber, IsOptional, IsPositive, IsString } from 'class-validator';
 
 @InputType()
 export class CreateRecordInput {
@@ -12,6 +12,15 @@ export class CreateRecordInput {
   @IsNumber({ maxDecimalPlaces: 2 })
   @IsPositive()
   minPressure: number;
+
+  @Field(() => Int, { description: 'heart rate per minute' })
+  @IsNumber()
+  @IsPositive()
+  heartRate: number;
+
+  @Field(() => Date, { description: 'date on which the measurement was taken' })
+  @IsDate()
+  date: Date;
 
   @Field(() => String, { description: 'record observations', nullable: true })
   @IsOptional()

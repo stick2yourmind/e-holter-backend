@@ -7,8 +7,10 @@ export class RecordOutputMapper extends EntityDtoMapper<Record, RecordOutput> {
     return {
       id: record.id,
       createdAt: record.createdAt,
-      maxPressure: Number(record.maximum_pressure),
-      minPressure: Number(record.minimum_pressure),
+      maxPressure: Number(record.maximumPressure),
+      minPressure: Number(record.minimumPressure),
+      heartRate: record.heartRate,
+      date: record.date,
       updatedAt: record.updatedAt,
       observations: record.observations,
     };
