@@ -22,6 +22,12 @@ import { RecordModule } from 'src/core/record/record.module';
       driver: ApolloDriver,
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
+        context: ({ req, res }) => ({ req, res }),
+        cors: {
+          origin: true,
+          methods: 'GET,HEAD,PUT,PATCH,DELETE,OPTIONS',
+          credentials: true,
+        },
         autoSchemaFile: join(process.cwd(), 'src/schema.gpl'),
         playground: false,
         plugins: configService.getOrThrow('NODE_END') !== 'PROD' ? [ApolloServerPluginLandingPageLocalDefault()] : [],

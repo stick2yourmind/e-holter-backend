@@ -6,6 +6,7 @@ import { RegisterInput } from 'src/auth/dto/register.input';
 import { LoginInput } from 'src/auth/dto/login.input';
 import { UserMapper } from 'src/core/user/mapper/user-mapper';
 import { UserService } from 'src/core/user/user.service';
+import { Response } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -35,5 +36,23 @@ export class AuthService {
 
     const token = this._jwtService.sign({ id: user.id });
     return { token, user };
+  }
+
+  setCookie(res: Response, token: string) {
+    res.cookie('userToken', token, {
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+      httpOnly: this._configService.getOrThrow('NODE_END') === 'PROD',
+      secure: this._configService.getOrThrow('NODE_END') === 'PROD',
+      sameSite: 'none',
+    });
+  }
+
+  clearCookie(res: Response) {
+    res.cookie('userToken', '', {
+      expires: new Date(Date.now()),
+      httpOnly: this._configService.getOrThrow('NODE_END') === 'PROD',
+      secure: this._configService.getOrThrow('NODE_END') === 'PROD',
+      sameSite: 'none',
+    });
   }
 }
