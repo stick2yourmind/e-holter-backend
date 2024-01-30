@@ -1,9 +1,10 @@
-import { Resolver, Mutation, Args, Query, Context } from '@nestjs/graphql';
+import { Resolver, Mutation, Args, Context } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 import { Auth } from './entities/auth.entity';
 import { LoginInput } from './dto/login.input';
 import { RegisterInput } from './dto/register.input';
 import { Response } from 'express';
+import { GenericResponse } from 'src/common/entity/generic-response.entity';
 
 @Resolver(() => Auth)
 export class AuthResolver {
@@ -17,13 +18,15 @@ export class AuthResolver {
   }
 
   @Mutation(() => Auth, { name: 'register' })
-  async register(@Args('registerInput') registerInput: RegisterInput) {
+  async register(@Context('res') res: Response, @Args('registerInput') registerInput: RegisterInput) {
     const data = await this._authService.register(registerInput);
+    this._authService.setCookie(res, data.token);
     return data;
   }
 
-  @Query(() => String, { name: 'test' })
-  test(): string {
-    return 'hello';
+  @Mutation(() => GenericResponse, { name: 'logout' })
+  async logout(@Context('res') res: Response) {
+    this._authService.clearCookie(res);
+    return { success: true };
   }
 }
