@@ -42,7 +42,7 @@ export class AuthService {
     res.cookie('userToken', token, {
       expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
       httpOnly: this._configService.getOrThrow('NODE_END') === 'PROD',
-      secure: this._configService.getOrThrow('NODE_END') === 'PROD',
+      secure: true,
       sameSite: 'none',
     });
   }
@@ -51,7 +51,7 @@ export class AuthService {
     res.cookie('userToken', '', {
       expires: new Date(Date.now()),
       httpOnly: this._configService.getOrThrow('NODE_END') === 'PROD',
-      secure: this._configService.getOrThrow('NODE_END') === 'PROD',
+      secure: true,
       sameSite: 'none',
     });
   }

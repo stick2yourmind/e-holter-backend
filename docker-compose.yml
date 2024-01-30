@@ -19,7 +19,7 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4:8.1
-    container_name: fatura-be-pgadmin
+    container_name: e-holter-be-pgadmin
     ports:
     - "8888:80"
     volumes:

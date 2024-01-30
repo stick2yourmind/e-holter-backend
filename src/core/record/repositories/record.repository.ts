@@ -15,7 +15,11 @@ export class RecordRepository extends BaseRepository<Record> {
   }
 
   async findAll(): Promise<Record[]> {
-    return await this._prismaService.record.findMany();
+    return await this._prismaService.record.findMany({
+      orderBy: {
+        date: 'desc',
+      },
+    });
   }
 
   async create(data: {
@@ -48,6 +52,6 @@ export class RecordRepository extends BaseRepository<Record> {
   }
 
   async findAllByUserId(userId: number): Promise<Record[]> {
-    return await this._prismaService.record.findMany({ where: { userId } });
+    return await this._prismaService.record.findMany({ where: { userId }, orderBy: { date: 'desc' } });
   }
 }

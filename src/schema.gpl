@@ -40,6 +40,11 @@ type Auth {
   user: UserOutput!
 }
 
+type GenericResponse {
+  """json web token"""
+  success: String!
+}
+
 """record model"""
 type RecordOutput {
   """record id"""
@@ -71,7 +76,6 @@ type Query {
   userById(id: Int!): UserOutput!
   users: [UserOutput!]!
   myUser: UserOutput!
-  test: String!
   records: [RecordOutput!]!
   record(id: Int!): RecordOutput!
 }
@@ -79,6 +83,7 @@ type Query {
 type Mutation {
   login(loginInput: LoginInput!): Auth!
   register(registerInput: RegisterInput!): Auth!
+  logout: GenericResponse!
   createRecord(createRecordInput: CreateRecordInput!): RecordOutput!
   updateRecord(id: Int!, updateRecordInput: UpdateRecordInput!): RecordOutput!
   removeRecord(id: Int!): RecordOutput!

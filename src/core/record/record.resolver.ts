@@ -24,10 +24,11 @@ export class RecordResolver {
     return new RecordOutputMapper().mapEntityToDto(record);
   }
 
-  @Roles($Enums.ROLE.ADMIN)
+  // @Roles($Enums.ROLE.ADMIN)
   @Query(() => [RecordOutput], { name: 'records' })
-  async findAll(): Promise<RecordOutput[]> {
-    const records = await this.recordService.findAll();
+  async findAll(@ReqUser() user: User): Promise<RecordOutput[]> {
+    const records = await this.recordService.findAllByUserId(user.id);
+
     return new RecordOutputMapper().mapEntitiesToDto(records);
   }
 
