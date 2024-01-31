@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Record } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
 import { BaseRepository } from 'src/common/repositories/base.repository';
+import { GetRecordsArg } from 'src/core/record/dto/get-records.argument';
 import { PrismaService } from 'src/db/orm/orm.service';
 
 @Injectable()
@@ -51,7 +52,21 @@ export class RecordRepository extends BaseRepository<Record> {
     return await this._prismaService.record.delete({ where: { id } });
   }
 
-  async findAllByUserId(userId: number): Promise<Record[]> {
-    return await this._prismaService.record.findMany({ where: { userId }, orderBy: { date: 'desc' } });
+  async findAllByUserId(
+    userId: number,
+    { limit, offset }: GetRecordsArg,
+  ): Promise<{ records: Record[]; count: number }> {
+    const records = await this._prismaService.record.findMany({
+      where: { userId },
+      orderBy: { date: 'desc' },
+      skip: offset,
+      take: limit,
+    });
+
+    // Will be update when search by tag/commentary is included
+    const count = await this._prismaService.record.count({
+      where: { userId },
+    });
+    return { records, count };
   }
 }

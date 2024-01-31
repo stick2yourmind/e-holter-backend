@@ -4,6 +4,7 @@ import { UpdateRecordInput } from './dto/update-record.input';
 import { RecordRepository } from 'src/core/record/repositories/record.repository';
 import { Prisma } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
+import { GetRecordsArg } from 'src/core/record/dto/get-records.argument';
 
 @Injectable()
 export class RecordService {
@@ -64,7 +65,7 @@ export class RecordService {
     return await this._recordRepository.removeById(recordId);
   }
 
-  async findAllByUserId(userId: number) {
-    return await this._recordRepository.findAllByUserId(userId);
+  async findAllByUserId(userId: number, recordsArgs: GetRecordsArg) {
+    return await this._recordRepository.findAllByUserId(userId, recordsArgs);
   }
 }
