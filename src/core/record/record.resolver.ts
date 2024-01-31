@@ -9,6 +9,8 @@ import { JwtGuard } from 'src/auth/decorator/jwt.decorator';
 import { Roles, RolesGuard } from 'src/auth/decorator/role.decorator';
 import { ReqUser } from 'src/auth/decorator/user.decorator';
 import { RecordOutputMapper } from 'src/core/record/mapper/record-output-mapper';
+import { GetRecordsArg } from 'src/core/record/dto/get-records.argument';
+import { RecordListOutput } from 'src/core/record/entities/record-list-ouput.entity';
 
 @Resolver(() => RecordOutput)
 @UseGuards(JwtGuard, RolesGuard)
@@ -25,11 +27,11 @@ export class RecordResolver {
   }
 
   // @Roles($Enums.ROLE.ADMIN)
-  @Query(() => [RecordOutput], { name: 'records' })
-  async findAll(@ReqUser() user: User): Promise<RecordOutput[]> {
-    const records = await this.recordService.findAllByUserId(user.id);
+  @Query(() => RecordListOutput, { name: 'records' })
+  async findAll(@ReqUser() user: User, @Args() paginationArgs: GetRecordsArg): Promise<RecordListOutput> {
+    const { records, count } = await this.recordService.findAllByUserId(user.id, paginationArgs);
 
-    return new RecordOutputMapper().mapEntitiesToDto(records);
+    return { results: new RecordOutputMapper().mapEntitiesToDto(records), total: count };
   }
 
   @Roles($Enums.ROLE.ADMIN)
